@@ -67,9 +67,9 @@ git push origin v1.0.0+1.20.1
 
 ---
 
-## CI（普段のビルド検証）
+## CI（ビルド検証）
 
-[`.github/workflows/build.yml`](.github/workflows/build.yml) が `main` / `mc/**` への push と全PRで `./gradlew build` を実行し、壊れていないか検証する。成果物（jar）は Actions の Artifacts から14日間ダウンロード可能。
+[`.github/workflows/build.yml`](.github/workflows/build.yml) は **手動実行のみ**（Actions タブ → Build → Run workflow）。push では自動で走らない。実行すると `./gradlew build` で検証し、成果物（jar）を Actions の Artifacts から14日間ダウンロードできる。リリース時のビルドは [`release.yml`](.github/workflows/release.yml) が別途行う。
 
 ---
 
