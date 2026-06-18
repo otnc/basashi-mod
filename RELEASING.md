@@ -62,6 +62,25 @@ GitHub の **Actions → Release → Run workflow**:
 
 ---
 
+## Modrinth / CurseForge への公開
+
+`release.yml` は [`Kir-Antipov/mc-publish`](https://github.com/Kir-Antipov/mc-publish) で GitHub Release と同時に Modrinth / CurseForge へも公開する。**プロジェクトは各サイトで事前に手動作成**しておくこと（初回のみ）。
+
+GitHub リポジトリの Settings に以下を登録すると有効化される（未設定のプラットフォームは自動スキップ）:
+
+| 種類 | 場所 | 名前 | 内容 |
+|------|------|------|------|
+| Variable | Settings → Secrets and variables → Actions → **Variables** | `MODRINTH_PROJECT_ID` | Modrinth のプロジェクトID（slug可） |
+| Variable | 同上 | `CURSEFORGE_PROJECT_ID` | CurseForge の数値プロジェクトID |
+| Secret | 同 → **Secrets** | `MODRINTH_TOKEN` | Modrinth の API トークン（[PAT発行](https://modrinth.com/settings/pats)） |
+| Secret | 同上 | `CURSEFORGE_TOKEN` | CurseForge の API トークン |
+
+- ID（Variable）とトークン（Secret）の**両方**が揃ったプラットフォームのみ公開される。
+- 公開時のメタ情報（ローダー=forge/neoforge、ゲームバージョン、前提MOD=architectury-api）は `release.yml` 内で指定済み。
+- 各サイトで初回ファイルは審査が入る場合がある。
+
+---
+
 ## CI（ビルド検証）
 
 [`.github/workflows/build.yml`](.github/workflows/build.yml) は **手動実行のみ**（Actions タブ → Build → Run workflow）。push では自動で走らない。実行すると `./gradlew build` で検証し、成果物（jar）を Actions の Artifacts から14日間ダウンロードできる。リリース時のビルドは [`release.yml`](.github/workflows/release.yml) が別途行う。

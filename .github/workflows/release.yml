@@ -77,3 +77,22 @@ jobs:
             ### 導入方法
             `${{ steps.jar.outputs.asset }}` を Forge または NeoForge ${{ steps.ver.outputs.mc }} の `mods` フォルダに入れてください。
           files: ${{ steps.jar.outputs.asset }}
+
+      # Modrinth / CurseForge へ公開（ID・トークン未設定のプラットフォームは自動でスキップ）
+      - name: Publish to Modrinth / CurseForge
+        uses: Kir-Antipov/mc-publish@v3.3.0
+        with:
+          modrinth-id: ${{ vars.MODRINTH_PROJECT_ID }}
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+          curseforge-id: ${{ vars.CURSEFORGE_PROJECT_ID }}
+          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
+          files: ${{ steps.jar.outputs.asset }}
+          name: "馬刺しMOD ${{ steps.ver.outputs.mod }} (MC ${{ steps.ver.outputs.mc }})"
+          version: "${{ steps.ver.outputs.mod }}"
+          version-type: release
+          loaders: |
+            forge
+            neoforge
+          game-versions: "${{ steps.ver.outputs.mc }}"
+          dependencies: |
+            architectury-api(required)

@@ -2,7 +2,7 @@
 
 <img src="icon.png" alt="馬刺しMOD アイコン" width="120" align="right">
 
-馬を倒して馬刺しを手に入れ、焼いたり調理したりして馬肉料理を楽しめる、Minecraft **1.20.1** の食料追加MODです。
+馬を倒して馬刺しを集め、焼き・調理で馬肉料理を楽しむ食料追加MODです（Minecraft **1.20.1**）。
 
 **対応ローダー: Forge / NeoForge（1.20.1）**
 
