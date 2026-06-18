@@ -1,0 +1,12 @@
+architectury {
+    common rootProject.enabled_platforms.split(",")
+}
+
+dependencies {
+    // We depend on fabric loader here only to use the fabric @Environment annotations
+    // and to pull in mixin dependencies. Do NOT use other classes from fabric loader.
+    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
+
+    // Architectury API (common artifact)
+    modImplementation "dev.architectury:architectury:${rootProject.architectury_api_version}"
+}

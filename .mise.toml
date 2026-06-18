@@ -1,0 +1,4 @@
+# このプロジェクトで使う Java バージョンを固定する（mise 用）
+# フォルダに入ると mise が自動でこの JDK に切り替える
+[tools]
+java = "temurin-17"

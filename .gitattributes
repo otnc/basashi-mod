@@ -1,0 +1,14 @@
+# 既定はテキスト自動判定＋LF
+* text=auto eol=lf
+
+# Windows用バッチはCRLF
+*.bat   text eol=crlf
+*.cmd   text eol=crlf
+
+# Gradle wrapper スクリプトはLF（CI/Linuxで実行できるように）
+gradlew text eol=lf
+
+# バイナリは変換しない
+*.jar   binary
+*.png   binary
+*.zip   binary

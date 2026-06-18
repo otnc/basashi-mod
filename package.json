@@ -1,0 +1,19 @@
+{
+  "name": "basashi-mod",
+  "version": "1.0.0",
+  "description": "Minecraft **1.20.1** 向けの食料追加MOD。**Forge / NeoForge** 両対応（Architectury マルチローダー構成）。",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "format": "prettier --write \"**/*.java\"",
+    "format:check": "prettier --check \"**/*.java\""
+  },
+  "keywords": [],
+  "author": "otoneko.",
+  "license": "MIT",
+  "type": "commonjs",
+  "devDependencies": {
+    "prettier": "^3.8.4",
+    "prettier-plugin-java": "^2.9.7"
+  }
+}

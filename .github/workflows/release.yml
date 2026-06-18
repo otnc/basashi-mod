@@ -1,0 +1,72 @@
+name: Release
+
+# タグ形式: v<MODバージョン>+<MCバージョン>  例: v1.0.0+1.20.1
+# このタグを push すると、そのブランチの内容でビルドして Release を作成する。
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
+      - name: Read versions from gradle.properties
+        id: ver
+        run: |
+          MOD_VERSION=$(grep -E '^mod_version=' gradle.properties | cut -d= -f2 | tr -d '[:space:]')
+          MC_VERSION=$(grep -E '^minecraft_version=' gradle.properties | cut -d= -f2 | tr -d '[:space:]')
+          echo "mod=$MOD_VERSION" >> "$GITHUB_OUTPUT"
+          echo "mc=$MC_VERSION" >> "$GITHUB_OUTPUT"
+          echo "Building basashi $MOD_VERSION for Minecraft $MC_VERSION"
+
+      - name: Build
+        run: ./gradlew build --stacktrace
+
+      - name: Prepare release jar
+        id: jar
+        run: |
+          MC="${{ steps.ver.outputs.mc }}"
+          MOD="${{ steps.ver.outputs.mod }}"
+          SRC="forge/build/libs/basashi-forge-${MC}-${MOD}.jar"
+          DEST="basashi-${MC}-${MOD}.jar"
+          if [ ! -f "$SRC" ]; then
+            echo "::error::Expected jar not found: $SRC"
+            ls -la forge/build/libs || true
+            exit 1
+          fi
+          cp "$SRC" "$DEST"
+          echo "asset=$DEST" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "馬刺しMOD ${{ steps.ver.outputs.mod }} (MC ${{ steps.ver.outputs.mc }})"
+          generate_release_notes: true
+          body: |
+            ## 馬刺しMOD `${{ steps.ver.outputs.mod }}` — Minecraft ${{ steps.ver.outputs.mc }}
+
+            **対応ローダー: Forge / NeoForge ${{ steps.ver.outputs.mc }}**
+            （${{ steps.ver.outputs.mc }} では NeoForge が Forge 互換のため、この jar 1つで両方に対応します）
+
+            ### 導入方法
+            `${{ steps.jar.outputs.asset }}` を Forge または NeoForge ${{ steps.ver.outputs.mc }} の `mods` フォルダに入れてください。
+          files: ${{ steps.jar.outputs.asset }}

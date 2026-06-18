@@ -1,0 +1,32 @@
+# Gradle
+.gradle/
+build/
+out/
+*.hprof
+
+# 注: gradle/wrapper/gradle-wrapper.jar は意図的に追跡対象（CI/他環境でビルドに必須）。
+# *.jar を一括ignoreしないこと。
+
+# Loom / Architectury
+.architectury-transformer/
+run/
+*.log
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.classpath
+.project
+bin/
+
+# Node (Prettier tooling)
+node_modules/
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db

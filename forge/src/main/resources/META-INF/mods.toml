@@ -1,0 +1,36 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+
+[[mods]]
+modId="basashi"
+version="${version}"
+displayName="馬刺しMOD"
+authors="otoneko."
+description='''
+馬を倒すと「馬刺し」がドロップする食料追加MOD。
+馬刺しを焼くと「馬のタタキ」に。卵やニンジン等と組み合わせて馬肉料理が作れます。
+'''
+
+# Forge を必須にすると NeoForge 1.20.1（modId が forge ではない）で読み込めないため任意にする。
+# 実際のローダー要件は modLoader="javafml" + loaderVersion で担保される。
+[[dependencies.basashi]]
+modId="forge"
+mandatory=false
+versionRange="[47,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.basashi]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1,1.21)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.basashi]]
+modId="architectury"
+mandatory=true
+versionRange="[9.0.0,)"
+ordering="AFTER"
+side="BOTH"
