@@ -40,11 +40,21 @@
 
 > クラフトは並べ方自由（shapeless）です。
 
+## ダウンロード
+
+以下のいずれからでも入手できます（中身は同じ jar です）:
+
+- [GitHub Releases](https://github.com/otnc/basashi-mod/releases)
+- [Modrinth](https://modrinth.com/mod/basashi-mod) **(審査中)**
+- [CurseForge](https://www.curseforge.com/minecraft/mc-mods/basashi-mod) **(審査中)**
+
+> Modrinth / CurseForge は公開審査中のため、ページが表示されない場合があります。その間は GitHub Releases をご利用ください。
+
 ## 導入方法
 
 1. **Forge 1.20.1** または **NeoForge 1.20.1** を導入する
 2. 前提MOD **[Architectury API](https://www.curseforge.com/minecraft/mc-mods/architectury-api)**（1.20.1 / Forge版）を `mods` フォルダに入れる
-3. [Releases](https://github.com/otnc/basashi-mod/releases) から `basashi-1.20.1-1.0.0.jar` をダウンロードし、`mods` フォルダに入れる
+3. 上記ダウンロード先から `basashi-1.20.1-1.0.0.jar` を入手し、`mods` フォルダに入れる
 4. ゲームを起動する
 
 > 1.20.1 では NeoForge が Forge と互換のため、この jar 1つで両ローダーに対応します。
