@@ -41,12 +41,6 @@ public final class ModItems {
     public static void register() {
         ITEMS.register();
 
-        CreativeTabRegistry.append(
-            CreativeModeTabs.FOOD_AND_DRINKS,
-            BASASHI.get(),
-            UMA_NO_TATAKI.get(),
-            UMA_YUKKE.get(),
-            UMA_TARTARE.get()
-        );
+        CreativeTabRegistry.append(CreativeModeTabs.FOOD_AND_DRINKS, BASASHI, UMA_NO_TATAKI, UMA_YUKKE, UMA_TARTARE);
     }
 }
