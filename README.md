@@ -54,7 +54,7 @@
 
 1. **Forge 1.20.1** または **NeoForge 1.20.1** を導入する
 2. 前提MOD **[Architectury API](https://www.curseforge.com/minecraft/mc-mods/architectury-api)**（1.20.1 / Forge版）を `mods` フォルダに入れる
-3. 上記ダウンロード先から `basashi-1.20.1-1.0.0.jar` を入手し、`mods` フォルダに入れる
+3. 上記ダウンロード先から jar ファイルを入手し、`mods` フォルダに入れる
 4. ゲームを起動する
 
 > 1.20.1 では NeoForge が Forge と互換のため、この jar 1つで両ローダーに対応します。
