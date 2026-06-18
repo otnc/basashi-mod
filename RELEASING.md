@@ -40,30 +40,25 @@
 
 ## リリース手順
 
-### 1. バージョンを決めて gradle.properties を更新
-```properties
-mod_version=1.0.0
-minecraft_version=1.20.1
-```
-コミットして対象ブランチへ push。
+リリースは **GitHub Actions の手動実行（バージョン入力）** で行う。タグやファイル更新は不要。
 
-### 2. タグを打って push
-タグ形式: **`v<MOD>+<MC>`**
+### 1. リリースしたいブランチを確認
+そのブランチの `gradle.properties` の `minecraft_version` が対象MCになる（例: `main` = 1.20.1）。
 
-```bash
-git tag v1.0.0+1.20.1
-git push origin v1.0.0+1.20.1
-```
+### 2. Release ワークフローを実行
+GitHub の **Actions → Release → Run workflow**:
+- **Use workflow from**: リリース対象のブランチを選択
+- **MODバージョン**: リリースする版を入力（例 `1.0.0`）
 
-> `+<MC>` を含めることで、別のMCバージョンで同じMODバージョン（例 1.20.1 と 1.21 の両方で v1.0.0）を出してもタグが衝突しない。
-
-### 3. 自動でリリースされる
-`v*` タグの push を [`.github/workflows/release.yml`](.github/workflows/release.yml) が検知し、
-- そのブランチの内容でビルド
+→ [`.github/workflows/release.yml`](.github/workflows/release.yml) が自動で:
+- 入力したMODバージョンでビルド（`-Pmod_version=<入力値>`）
 - `basashi-<MC>-<MOD>.jar` を生成
+- タグ `v<MOD>+<MC>`（例 `v1.0.0+1.20.1`）を作成
 - GitHub Release を作成して jar を添付
 
-までを自動で行う。
+> タグに `+<MC>` を含めるため、別のMCバージョンで同じMODバージョン（1.20.1 と 1.21 の両方で v1.0.0）を出してもタグが衝突しない。
+
+> MODバージョンは実行時入力が優先される。`gradle.properties` の `mod_version` は普段の既定値。恒久的に上げたい場合は別途 `gradle.properties` を更新してコミットする。
 
 ---
 
