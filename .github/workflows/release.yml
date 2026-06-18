@@ -1,7 +1,5 @@
 name: Release
 
-# タグ形式: v<MODバージョン>+<MCバージョン>  例: v1.0.0+1.20.1
-# このタグを push すると、そのブランチの内容でビルドして Release を作成する。
 on:
   push:
     tags: ["v*"]

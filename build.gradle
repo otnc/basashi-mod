@@ -15,8 +15,6 @@ allprojects {
     base {
         archivesName = rootProject.archives_base_name + "-" + project.name
     }
-    // バージョン形式: <MCバージョン>-<MODバージョン> 例: 1.20.1-1.0.0
-    // → 配布jarがどのMC向けか一目で分かり、複数MCバージョン展開時も衝突しない
     version = rootProject.minecraft_version + "-" + rootProject.mod_version
     group = rootProject.maven_group
 

@@ -9,7 +9,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 public final class BasashiModForge {
 
     public BasashiModForge() {
-        // Architectury の登録/イベントを Forge のMODイベントバスへ接続
         EventBuses.registerModEventBus(BasashiMod.MOD_ID, FMLJavaModLoadingContext.get().getModEventBus());
         BasashiMod.init();
     }
