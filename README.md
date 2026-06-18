@@ -1,73 +1,54 @@
 # 馬刺しMOD (Basashi Mod)
 
-Minecraft **1.20.1** 向けの食料追加MOD。**Forge / NeoForge 両対応**。
+馬を倒して馬刺しを手に入れ、焼いたり調理したりして馬肉料理を楽しめる、Minecraft **1.20.1** の食料追加MODです。
 
-> 1.20.1 では NeoForge が Forge と完全互換（同じ `net.minecraftforge.*` パッケージ・同じ `mods.toml` 形式）のため、**ビルドした Forge 版 jar をそのまま NeoForge 1.20.1 でも導入できます**。専用の NeoForge ビルドは不要です（独立した NeoForge ビルドが必要になるのは MC 1.20.2 以降）。
+**対応ローダー: Forge / NeoForge（1.20.1）**
 
-## 内容
+---
 
-- 馬を倒すと **馬刺し** がドロップ
-- 馬刺しを **かまど / 燻製機 / 焚火** で焼くと **馬のタタキ**
-- **燃えている馬** を倒すと **馬のタタキ** が直接ドロップ
-- **馬刺し + 卵** → **馬肉のユッケ**
-- **馬刺し + ニンジン + ビートルート + 卵** → **馬肉のタルタルステーキ**
+## アイテム
 
-詳細仕様は [DESIGN.md](DESIGN.md) を参照。
+![アイテム一覧](docs/img/items.png)
 
-## 必要環境
+| アイテム | 入手方法 | 回復（空腹度） |
+|----------|----------|:---:|
+| 馬刺し | 馬を倒す | 🍖×3 |
+| 馬のタタキ | 馬刺しを焼く／燃えている馬を倒す | 🍖×8 |
+| 馬肉のユッケ | 馬刺し＋卵でクラフト | 🍖×6 |
+| 馬肉のタルタルステーキ | 馬刺し＋ニンジン＋ビートルート＋卵でクラフト | 🍖×11 |
 
-- **JDK 17**（必須）
-- 初回ビルド時はネット接続が必要（依存ライブラリを取得）
+## 入手・調理
 
-## ビルド方法
+- 🐴 **馬を倒す** → 馬刺し がドロップ
+- 🔥 **燃えている馬を倒す** → 馬のタタキ が直接ドロップ
+- 🍳 **馬刺しを焼く**（かまど／燻製機／焚火）→ 馬のタタキ
 
-プロジェクト直下で:
+## レシピ
 
-```powershell
-.\gradlew build
-```
+### 馬のタタキ（かまど・燻製機・焚火）
+![タタキのレシピ](docs/img/recipe_tataki.png)
 
-成果物（配布用jar）:
+### 馬肉のユッケ（馬刺し＋卵）
+![ユッケのレシピ](docs/img/recipe_yukke.png)
 
-- **`forge\build\libs\basashi-forge-1.0.0.jar`** … Forge / NeoForge 1.20.1 共通で使える配布用 jar
+### 馬肉のタルタルステーキ（馬刺し＋ニンジン＋ビートルート＋卵）
+![タルタルステーキのレシピ](docs/img/recipe_tartare.png)
 
-`*-sources.jar` や `*-dev-shadow.jar` は配布用ではないので無視してよい。
+> クラフトは並べ方自由（shapeless）です。
 
-> JDK が PATH に無い場合は、ビルド前に `JAVA_HOME` を JDK 17 に向ける:
-> ```powershell
-> $env:JAVA_HOME = (mise where java@temurin-17)
-> $env:Path = "$env:JAVA_HOME\bin;$env:Path"
-> ```
+## 導入方法
 
-## 開発実行（ゲーム内テスト）
+1. **Forge 1.20.1** または **NeoForge 1.20.1** を導入する
+2. 前提MOD **[Architectury API](https://www.curseforge.com/minecraft/mc-mods/architectury-api)**（1.20.1 / Forge版）を `mods` フォルダに入れる
+3. [Releases](https://github.com/otnc/basashi-mod/releases) から `basashi-1.20.1-1.0.0.jar` をダウンロードし、`mods` フォルダに入れる
+4. ゲームを起動する
 
-```powershell
-# Forgeでクライアント起動（NeoForgeでの動作確認は、ビルドしたjarをNeoForge環境に入れて行う）
-.\gradlew :forge:runClient
-```
+> 1.20.1 では NeoForge が Forge と互換のため、この jar 1つで両ローダーに対応します。
 
-## ディレクトリ構成
+## ライセンス
 
-```
-common/   … ローダー非依存の本体（アイテム・イベント・レシピ・モデル・言語・テクスチャ）
-forge/    … Forge固有エントリ（生成jarはNeoForge 1.20.1でも動作）
-```
+[MIT License](LICENSE) © otoneko.
 
-## CI / リリース（GitHub Actions）
+## 開発者向け
 
-ワークフローは目的別に2本に分かれている。詳細な運用は [RELEASING.md](RELEASING.md) を参照。
-
-### build.yml — ビルド検証（手動）
-- **動くタイミング**: 手動実行のみ（自動では走らない）
-- **やること**: `./gradlew build` でビルドが通るか検証し、jar を Actions の Artifacts に14日間保管
-- **使い方**: GitHub の Actions タブ → Build → **Run workflow**。push では走らないので、確認したいときだけ実行する
-
-### release.yml — リリース発行（手動・バージョン入力）
-- **動くタイミング**: 手動実行のみ
-- **やること**: 入力したMODバージョンでビルド → `basashi-<MC>-<MOD>.jar` を生成 → タグ `v<MOD>+<MC>` を作成 → GitHub Release を作成して添付
-- **使い方**: Actions タブ → Release → **Run workflow** → 対象ブランチを選び、**MODバージョン**を入力（例 `1.0.0`）して実行。MCバージョンはそのブランチの `gradle.properties` から自動取得
-
-## 備考
-
-- テクスチャ（`common/.../textures/item/*.png`）は識別用の仮テクスチャ。同名で上書きすれば差し替え可能。
-- 食料の数値やレシピは [DESIGN.md](DESIGN.md) と各 JSON / `ModItems.java` を編集して調整できる。
+ビルド方法・開発環境・リリース手順は [CONTRIBUTING.md](CONTRIBUTING.md) を参照してください。仕様の詳細は [DESIGN.md](DESIGN.md) にあります。
