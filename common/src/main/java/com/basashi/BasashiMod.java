@@ -8,6 +8,9 @@ public final class BasashiMod {
 
     public static void init() {
         ModItems.register();
+        ModEnchantments.register();
         HorseDropHandler.register();
+        GoldenWheatHandler.register();
+        ModTrades.register();
     }
 }
