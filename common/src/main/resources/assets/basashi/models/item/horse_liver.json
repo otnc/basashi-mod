@@ -1,6 +1,6 @@
 {
     "parent": "minecraft:item/generated",
     "textures": {
-        "layer0": "basashi:item/uma_tartare"
+        "layer0": "basashi:item/horse_liver"
     }
 }

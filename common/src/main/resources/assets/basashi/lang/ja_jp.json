@@ -1,6 +1,13 @@
 {
     "item.basashi.basashi": "馬刺し",
-    "item.basashi.uma_no_tataki": "馬のタタキ",
-    "item.basashi.uma_yukke": "馬肉のユッケ",
-    "item.basashi.uma_tartare": "馬肉のタルタルステーキ"
+    "item.basashi.horse_tataki": "馬のタタキ",
+    "item.basashi.horse_yukke": "馬肉のユッケ",
+    "item.basashi.horse_tartare": "馬肉のタルタルステーキ",
+    "item.basashi.horse_hamburg": "馬肉のハンバーグ",
+    "item.basashi.horse_hamburg_deluxe": "馬肉の具入りハンバーグ",
+    "item.basashi.horse_liver": "生の馬レバー",
+    "item.basashi.cooked_horse_liver": "焼いた馬レバー",
+    "item.basashi.golden_wheat": "金の小麦",
+    "item.basashi.golden_bread": "金のパン",
+    "enchantment.basashi.slaughter": "屠殺"
 }
