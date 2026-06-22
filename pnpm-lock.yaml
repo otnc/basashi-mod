@@ -1,0 +1,51 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    devDependencies:
+      pngjs:
+        specifier: ^7.0.0
+        version: 7.0.0
+      prettier:
+        specifier: ^3.8.4
+        version: 3.8.4
+      prettier-plugin-java:
+        specifier: ^2.9.7
+        version: 2.9.7(prettier@3.8.4)
+
+packages:
+
+  pngjs@7.0.0:
+    resolution: {integrity: sha512-LKWqWJRhstyYo9pGvgor/ivk2w94eSjE3RGVuzLGlr3NmD8bf7RcYGze1mNdEHRP6TRP6rMuDHk5t44hnTRyow==}
+    engines: {node: '>=14.19.0'}
+
+  prettier-plugin-java@2.9.7:
+    resolution: {integrity: sha512-5ifIseGcpuBizlGw9bUZPoyRPj8c9TV2g2jfO+70Dt92ZH5XG39iXZ4qyGTXN7OTdEprqJjHYQ8UWZcfDc4P9Q==}
+    peerDependencies:
+      prettier: ^3.0.0
+
+  prettier@3.8.4:
+    resolution: {integrity: sha512-N2MylSdi48+5N/6S5j+maeHbUSIzzZ5uOcX5Hm4QpV8Dkb1HFjfAKTKX6yNPJQD9AhcT3ifHNB66tWTTJDi11Q==}
+    engines: {node: '>=14'}
+    hasBin: true
+
+  web-tree-sitter@0.26.9:
+    resolution: {integrity: sha512-YJwSHANl6XFgeEjB8nitgj0qZYt5gkIesJ4w2srS2wcLB4GUa4xcOkM0YaMsU6WNR53YVIkDSY7Ej4pf3IXtCA==}
+
+snapshots:
+
+  pngjs@7.0.0: {}
+
+  prettier-plugin-java@2.9.7(prettier@3.8.4):
+    dependencies:
+      prettier: 3.8.4
+      web-tree-sitter: 0.26.9
+
+  prettier@3.8.4: {}
+
+  web-tree-sitter@0.26.9: {}

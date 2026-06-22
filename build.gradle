@@ -15,7 +15,8 @@ allprojects {
     base {
         archivesName = rootProject.archives_base_name + "-" + project.name
     }
-    version = rootProject.minecraft_version + "-" + rootProject.mod_version
+    // mod_version は -Pmod_version=... で指定（リリース/ローカルビルド）。未指定なら dev。
+    version = rootProject.minecraft_version + "-" + (rootProject.findProperty("mod_version") ?: "dev")
     group = rootProject.maven_group
 
     repositories {

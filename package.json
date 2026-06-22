@@ -6,13 +6,16 @@
   "private": true,
   "scripts": {
     "format": "prettier --write \"**/*.java\"",
-    "format:check": "prettier --check \"**/*.java\""
+    "format:check": "prettier --check \"**/*.java\"",
+    "build": "node scripts/build.mjs",
+    "items": "node scripts/gen-items.mjs"
   },
   "keywords": [],
   "author": "otoneko.",
   "license": "MIT",
   "type": "commonjs",
   "devDependencies": {
+    "pngjs": "^7.0.0",
     "prettier": "^3.8.4",
     "prettier-plugin-java": "^2.9.7"
   }
