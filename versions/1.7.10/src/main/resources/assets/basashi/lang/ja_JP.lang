@@ -1,0 +1,12 @@
+item.basashi.basashi.name=馬刺し
+item.basashi.horse_tataki.name=馬のタタキ
+item.basashi.horse_yukke.name=馬肉のユッケ
+item.basashi.horse_tartare.name=馬肉のタルタルステーキ
+item.basashi.horse_hamburg.name=馬肉のハンバーグ
+item.basashi.horse_hamburg_deluxe.name=馬肉の具入りハンバーグ
+item.basashi.horse_liver.name=生の馬レバー
+item.basashi.cooked_horse_liver.name=焼いた馬レバー
+item.basashi.golden_wheat.name=金の小麦
+item.basashi.golden_bread.name=金のパン
+enchantment.basashi.slaughter=屠殺
+itemGroup.basashi=馬刺しMOD

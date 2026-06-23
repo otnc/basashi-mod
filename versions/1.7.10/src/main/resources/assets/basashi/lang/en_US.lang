@@ -1,0 +1,12 @@
+item.basashi.basashi.name=Basashi
+item.basashi.horse_tataki.name=Horse Tataki
+item.basashi.horse_yukke.name=Horse Yukke
+item.basashi.horse_tartare.name=Horse Tartare Steak
+item.basashi.horse_hamburg.name=Horse Hamburg Steak
+item.basashi.horse_hamburg_deluxe.name=Loaded Horse Hamburg Steak
+item.basashi.horse_liver.name=Raw Horse Liver
+item.basashi.cooked_horse_liver.name=Cooked Horse Liver
+item.basashi.golden_wheat.name=Golden Wheat
+item.basashi.golden_bread.name=Golden Bread
+enchantment.basashi.slaughter=Slaughter
+itemGroup.basashi=Basashi Mod
