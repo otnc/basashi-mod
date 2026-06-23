@@ -146,6 +146,7 @@ jobs:
             | 1.20.1 | Forge / NeoForge | Architectury API |
             | 1.16.5 | Forge | なし |
             | 1.12.2 | Forge | なし |
+            | 1.7.10 | Forge | なし |
 
             ### 導入方法
             使用する Minecraft バージョンに対応する `basashi-<MC>-${{ inputs.mod_version }}.jar` を `mods` フォルダに入れてください（1.20.1 のみ Architectury API が必要）。
