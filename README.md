@@ -1,197 +1,199 @@
-# 馬刺しMOD (Basashi Mod)
+# Basashi Mod (馬刺しMOD)
 
-<img src="icon.png" alt="馬刺しMOD アイコン" width="120" align="right">
+<img src="icon.png" alt="Basashi Mod icon" width="120" align="right">
 
-馬を倒して **馬刺し** を集め、焼き・調理で多彩な馬肉料理を作る食料追加MODです。
-屠殺エンチャントや金の小麦など、馬にまつわる遊びを追加します。
+📖 **English** | [日本語](README-ja.md)
 
-## ✨ 主な特徴
+A food mod where you hunt horses to collect **Basashi** (horse sashimi) and cook it into a variety of horse-meat dishes.
+It also adds horse-themed gameplay such as the Slaughter enchantment and Golden Wheat.
 
-- 🐴 馬から **馬刺し** がドロップ。焼くと **馬のタタキ**
-- 🍳 ユッケ・タルタルステーキ・ハンバーグなど **多彩な馬肉料理**
-- 🌾 **金の小麦** で馬の手なずけ・繁殖・回復・成長
-- ⚔️ **屠殺エンチャント**（全動物のドロップ増加、子供動物からも入手）
-- 🧑‍🍳 **肉屋** の村人と取引、各種 **馬鎧** のクラフト
-- 🧩 **多バージョン対応**（1.20.1 / 1.16.5 / 1.12.2 / 1.7.10）
+## ✨ Highlights
+
+- 🐴 Horses drop **Basashi**; cook it into **Horse Tataki**
+- 🍳 A variety of dishes: Yukke, Tartare Steak, Hamburg, and more
+- 🌾 **Golden Wheat** to tame, breed, heal, and grow horses
+- ⚔️ **Slaughter enchantment** (more drops from all animals, plus loot from babies)
+- 🧑‍🍳 Trade with the **Butcher** villager, and craft various **horse armors**
+- 🧩 **Multi-version support** (1.20.1 / 1.16.5 / 1.12.2 / 1.7.10)
 
 ---
 
-## 📦 対応バージョン
+## 📦 Supported versions
 
-| Minecraft | ローダー | 必要な前提MOD |
+| Minecraft | Loader | Required dependency |
 |---|---|---|
-| 1.20.1（おすすめ） | Forge / NeoForge | [Architectury API](https://www.curseforge.com/minecraft/mc-mods/architectury-api) |
-| 1.16.5 | Forge | なし |
-| 1.12.2 | Forge | なし |
-| 1.7.10 | Forge | なし |
+| 1.20.1 (recommended) | Forge / NeoForge | [Architectury API](https://www.curseforge.com/minecraft/mc-mods/architectury-api) |
+| 1.16.5 | Forge | None |
+| 1.12.2 | Forge | None |
+| 1.7.10 | Forge | None |
 
-> 1.20.1 が最も機能が充実したおすすめ版です。1.20.1 だけ前提MOD「Architectury API」が必要で、他は jar を入れるだけで遊べます。
+> 1.20.1 is the most feature-complete, recommended version. Only 1.20.1 needs the "Architectury API" dependency; the others run by just dropping in the jar.
 
-**MODバージョンと対応Minecraft**
+**Mod version vs. Minecraft version**
 
-| MODバージョン | 1.20.1 | 1.16.5 | 1.12.2 | 1.7.10 |
+| Mod version | 1.20.1 | 1.16.5 | 1.12.2 | 1.7.10 |
 |---|:---:|:---:|:---:|:---:|
 | **v1.1.0** | ✅ | ✅ | ✅ | ✅ |
 | v1.0.0 | ✅ | – | – | – |
 
 ---
 
-## ⬇️ ダウンロード
+## ⬇️ Download
 
-以下のいずれからでも入手できます（中身は同じです）:
+Available from any of the following (the files are identical):
 
 - [GitHub Releases](https://github.com/otnc/basashi-mod/releases)
-- [Modrinth](https://modrinth.com/mod/basashi-mod) **(審査中)**
-- [CurseForge](https://www.curseforge.com/minecraft/mc-mods/basashi-mod) **(審査中)**
+- [Modrinth](https://modrinth.com/mod/basashi-mod) **(under review)**
+- [CurseForge](https://www.curseforge.com/minecraft/mc-mods/basashi-mod) **(under review)**
 
-> Modrinth / CurseForge は公開審査中のため、ページが表示されない場合があります。その間は GitHub Releases をご利用ください。
-
----
-
-## 🔧 導入方法
-
-使用する Minecraft バージョンを開いて手順に従ってください。
-
-<details>
-<summary><b>1.20.1（Forge / NeoForge）</b></summary>
-
-1. **Forge** または **NeoForge** 1.20.1 を導入する
-2. 前提MOD **[Architectury API](https://www.curseforge.com/minecraft/mc-mods/architectury-api)**（1.20.1 / Forge版）を `mods` フォルダに入れる
-3. `basashi-1.20.1-x.x.x.jar` を `mods` フォルダに入れる
-4. ゲームを起動する
-
-> NeoForge は Forge 互換のため、この jar 1つで両ローダーに対応します。
-
-</details>
-
-<details>
-<summary><b>1.16.5（Forge）</b></summary>
-
-1. **Forge** 1.16.5 を導入する
-2. `basashi-1.16.5-x.x.x.jar` を `mods` フォルダに入れる（前提MOD不要）
-3. ゲームを起動する
-
-</details>
-
-<details>
-<summary><b>1.12.2（Forge）</b></summary>
-
-1. **Forge** 1.12.2 を導入する
-2. `basashi-1.12.2-x.x.x.jar` を `mods` フォルダに入れる（前提MOD不要）
-3. ゲームを起動する
-
-</details>
-
-<details>
-<summary><b>1.7.10（Forge）</b></summary>
-
-1. **Forge** 1.7.10 を導入する
-2. `basashi-1.7.10-x.x.x.jar` を `mods` フォルダに入れる（前提MOD不要）
-3. ゲームを起動する
-
-</details>
+> Modrinth / CurseForge pages are under review and may not be visible yet. In the meantime, please use GitHub Releases.
 
 ---
 
-## 🍴 アイテム
+## 🔧 Installation
 
-![アイテム一覧](docs/img/items.png)
+Open your Minecraft version and follow the steps.
 
-| アイテム | 入手方法 | 空腹度 | 隠し満腹度 | 追加効果 |
-|----------|----------|:---:|:---:|----------|
-| 馬刺し | 馬を倒す | 🍖×5 | 3.0 | — |
-| 馬のタタキ | 馬刺しを焼く／燃えている馬を倒す | 🍖×10 | 16.0 | — |
-| 馬肉のユッケ | 馬刺し＋卵でクラフト | 🍖×8 | 9.6 | — |
-| 馬肉のタルタルステーキ | 馬刺し＋ニンジン＋卵でクラフト | 🍖×13 | 23.4 | — |
-| 馬肉のハンバーグ | 馬肉のユッケを焼く | 🍖×10 | 16.0 | — |
-| 馬肉の具入りハンバーグ | 馬肉のタルタルステーキを焼く | 🍖×14 | 25.2 | — |
-| 生の馬レバー | 馬を倒したときの稀ドロップ | 🍖×8 | 4.8 | 再生II・耐性II（各5分） |
-| 焼いた馬レバー | 生の馬レバーを焼く | 🍖×15 | 24.0 | 再生II・耐性II（各5分） |
-| 金の小麦 | 小麦＋金塊でクラフト | — | — | 馬への使用専用（下記） |
-| 金のパン | 金の小麦×3でクラフト | 🍖×5 | 12.0 | 再生II（5秒）・衝撃吸収I（2分） |
+<details>
+<summary><b>1.20.1 (Forge / NeoForge)</b></summary>
 
-> 「空腹度」は回復する空腹ゲージ、「隠し満腹度」は空腹度の減りにくさに影響する隠しパラメータです。
+1. Install **Forge** or **NeoForge** 1.20.1
+2. Put the dependency **[Architectury API](https://www.curseforge.com/minecraft/mc-mods/architectury-api)** (1.20.1 / Forge build) into your `mods` folder
+3. Put `basashi-1.20.1-x.x.x.jar` into your `mods` folder
+4. Launch the game
+
+> NeoForge is Forge-compatible, so this single jar works on both loaders.
+
+</details>
+
+<details>
+<summary><b>1.16.5 (Forge)</b></summary>
+
+1. Install **Forge** 1.16.5
+2. Put `basashi-1.16.5-x.x.x.jar` into your `mods` folder (no dependency needed)
+3. Launch the game
+
+</details>
+
+<details>
+<summary><b>1.12.2 (Forge)</b></summary>
+
+1. Install **Forge** 1.12.2
+2. Put `basashi-1.12.2-x.x.x.jar` into your `mods` folder (no dependency needed)
+3. Launch the game
+
+</details>
+
+<details>
+<summary><b>1.7.10 (Forge)</b></summary>
+
+1. Install **Forge** 1.7.10
+2. Put `basashi-1.7.10-x.x.x.jar` into your `mods` folder (no dependency needed)
+3. Launch the game
+
+</details>
 
 ---
 
-## 🎮 遊び方・要素
+## 🍴 Items
 
-### 🐴 ドロップ・調理
+![Item list](docs/img/items.png)
 
-- **馬を倒す** → 馬刺し がドロップ（ドロップ増加・屠殺エンチャントで数量アップ）
-- **燃えている馬を倒す** → 馬のタタキ が直接ドロップ
-- **馬を倒す** → 一定確率で 骨 もドロップ、稀に 生の馬レバー
-- **焼く**（かまど／燻製機／焚火）→ 馬刺し→タタキ、ユッケ→ハンバーグ、タルタル→具入りハンバーグ、生レバー→焼きレバー
+| Item | How to get | Hunger | Saturation | Extra effect |
+|------|------------|:---:|:---:|----------|
+| Basashi | Kill a horse | 🍖×5 | 3.0 | — |
+| Horse Tataki | Smelt Basashi / kill a burning horse | 🍖×10 | 16.0 | — |
+| Horse Yukke | Craft: Basashi + Egg | 🍖×8 | 9.6 | — |
+| Horse Tartare Steak | Craft: Basashi + Carrot + Egg | 🍖×13 | 23.4 | — |
+| Horse Hamburg Steak | Smelt Horse Yukke | 🍖×10 | 16.0 | — |
+| Loaded Horse Hamburg Steak | Smelt Horse Tartare Steak | 🍖×14 | 25.2 | — |
+| Raw Horse Liver | Rare drop from horses | 🍖×8 | 4.8 | Regeneration II & Resistance II (5 min each) |
+| Cooked Horse Liver | Smelt Raw Horse Liver | 🍖×15 | 24.0 | Regeneration II & Resistance II (5 min each) |
+| Golden Wheat | Craft: Wheat + Gold Nugget | — | — | For use on horses only (see below) |
+| Golden Bread | Craft: 3× Golden Wheat | 🍖×5 | 12.0 | Regeneration II (5s) & Absorption I (2 min) |
 
-### 🌾 金の小麦
+> "Hunger" is the food bar restored; "Saturation" is a hidden value that affects how slowly hunger depletes.
 
-馬に対して使うと、状況に応じて次の効果があります（食べることはできません）:
+---
 
-- **手なずけ**（未調教の馬の機嫌を上げ、確率で手なずけ）
-- **繁殖**（調教済みの大人の馬を繁殖モードに）
-- **回復**（体力を回復）
-- **成長促進**（子馬の成長を早める）
+## 🎮 Gameplay & features
 
-### ⚔️ エンチャント「屠殺（とさつ）」
+### 🐴 Drops & cooking
 
-剣・斧に付与できる **屠殺 I〜III**。**すべての動物**からのドロップ数・レアドロップ率を上げます（馬刺し等の独自ドロップにも適用）。エンチャントテーブルや本などから入手でき、他のドロップ増加系と重複します。
+- **Kill a horse** → drops Basashi (amount increases with Looting / Slaughter)
+- **Kill a burning horse** → drops Horse Tataki directly
+- **Kill a horse** → also has a chance to drop bones, and rarely Raw Horse Liver
+- **Smelt** (furnace / smoker / campfire) → Basashi→Tataki, Yukke→Hamburg, Tartare→Loaded Hamburg, Raw Liver→Cooked Liver
 
-さらに、通常はドロップしない **子供の動物** からも戦利品を得られるようになります:
+### 🌾 Golden Wheat
 
-| レベル | 子供の動物 |
+Use it on a horse for the following effects depending on the situation (it cannot be eaten):
+
+- **Taming** (raises an untamed horse's temper, with a chance to tame it)
+- **Breeding** (puts a tamed adult horse into love mode)
+- **Healing** (restores health)
+- **Growth** (speeds up a foal's growth)
+
+### ⚔️ "Slaughter" enchantment
+
+A weapon/axe enchantment, **Slaughter I–III**. It increases the **drop count and rare-drop rate from all animals** (including this mod's own drops). It can be obtained from enchanting tables, books, etc., and stacks with other drop-boosting effects.
+
+It also lets you get loot from **baby animals**, which normally drop nothing:
+
+| Level | Baby animals |
 |---|---|
-| 屠殺 I | ドロップ無し（大人の個数・レア率の強化のみ） |
-| 屠殺 II | 大人と同じ物がドロップ（個数バフ無し） |
-| 屠殺 III | 大人と同じ物がドロップ（個数バフあり） |
+| Slaughter I | No drops (only the adult count / rare-rate boost) |
+| Slaughter II | Drops the same as adults (no count bonus) |
+| Slaughter III | Drops the same as adults (with count bonus) |
 
-> 1.7.10 のみ、仕様上レアドロップ率の上昇には非対応です（ドロップ数の増加と子供動物のドロップは有効）。
+> On 1.7.10 only, the rare-drop-rate boost is not supported (the drop-count increase and baby-animal drops still work).
 
-### 🧑‍🍳 肉屋の取引
+### 🧑‍🍳 Butcher trades
 
-村人「肉屋」と取引できます。馬刺しの買い取りや、各種馬肉料理・金の小麦の販売を行います（肉屋のレベルが上がると品ぞろえが増えます）。
+You can trade with the "Butcher" villager: buying Basashi, selling various horse-meat dishes and Golden Wheat (the lineup grows as the Butcher levels up).
 
-### 📋 レシピ
+### 📋 Recipes
 
 <details>
-<summary>レシピ一覧を見る（クラフト・焼き）</summary>
+<summary>Show all recipes (crafting & smelting)</summary>
 
-#### 🔥 焼く（かまど・燻製機・焚火）
+#### 🛠 Crafting
 
-| 焼くと | レシピ |
-|---|---|
-| 馬刺し → 馬のタタキ | <img src="docs/img/recipe_tataki.png" width="240"> |
-| 馬肉のユッケ → 馬肉のハンバーグ | <img src="docs/img/recipe_horse_hamburg.png" width="240"> |
-| 馬肉のタルタルステーキ → 馬肉の具入りハンバーグ | <img src="docs/img/recipe_horse_hamburg_deluxe.png" width="240"> |
-| 生の馬レバー → 焼いた馬レバー | <img src="docs/img/recipe_cooked_horse_liver.png" width="240"> |
-
-#### 🛠 クラフト
-
-| アイテム | 材料 | レシピ |
+| Item | Ingredients | Recipe |
 |---|---|---|
-| 馬肉のユッケ | 馬刺し＋卵（並べ方自由） | <img src="docs/img/recipe_yukke.png" width="240"> |
-| 馬肉のタルタルステーキ | 馬刺し＋ニンジン＋卵（並べ方自由） | <img src="docs/img/recipe_tartare.png" width="240"> |
-| 金の小麦 | 小麦＋金塊 | <img src="docs/img/recipe_golden_wheat.png" width="240"> |
-| 金のパン | 金の小麦×3（横一列） | <img src="docs/img/recipe_golden_bread.png" width="240"> |
-| 鉄の馬鎧 | 鉄インゴット | <img src="docs/img/recipe_iron_horse_armor.png" width="240"> |
-| 金の馬鎧 | 金インゴット | <img src="docs/img/recipe_golden_horse_armor.png" width="240"> |
-| ダイヤの馬鎧 | ダイヤモンド | <img src="docs/img/recipe_diamond_horse_armor.png" width="240"> |
+| Horse Yukke | Basashi + Egg (shapeless) | <img src="docs/img/recipe_yukke.png" width="240"> |
+| Horse Tartare Steak | Basashi + Carrot + Egg (shapeless) | <img src="docs/img/recipe_tartare.png" width="240"> |
+| Golden Wheat | Wheat + Gold Nugget | <img src="docs/img/recipe_golden_wheat.png" width="240"> |
+| Golden Bread | 3× Golden Wheat (in a row) | <img src="docs/img/recipe_golden_bread.png" width="240"> |
+| Iron Horse Armor | Iron Ingots | <img src="docs/img/recipe_iron_horse_armor.png" width="240"> |
+| Golden Horse Armor | Gold Ingots | <img src="docs/img/recipe_golden_horse_armor.png" width="240"> |
+| Diamond Horse Armor | Diamonds | <img src="docs/img/recipe_diamond_horse_armor.png" width="240"> |
 
-> 馬鎧（鉄・金・ダイヤ）はバニラでは入手しにくいので、クラフトできるようにしています。革の馬鎧があるバージョン（1.16.5 / 1.20.1）はバニラのレシピをそのまま利用できます。
+> Iron/Gold/Diamond horse armors are hard to obtain in vanilla, so they are made craftable. On versions that have leather horse armor (1.16.5 / 1.20.1) you can simply use the vanilla recipe.
+
+#### 🔥 Smelting (furnace / smoker / campfire)
+
+| Smelt into | Recipe |
+|---|---|
+| Basashi → Horse Tataki | <img src="docs/img/recipe_tataki.png" width="240"> |
+| Horse Yukke → Horse Hamburg Steak | <img src="docs/img/recipe_horse_hamburg.png" width="240"> |
+| Horse Tartare Steak → Loaded Horse Hamburg Steak | <img src="docs/img/recipe_horse_hamburg_deluxe.png" width="240"> |
+| Raw Horse Liver → Cooked Horse Liver | <img src="docs/img/recipe_cooked_horse_liver.png" width="240"> |
 
 </details>
 
 ---
 
-## 🔄 アップデート時の互換性
+## 🔄 Update compatibility
 
-過去バージョンから更新しても、既存ワールドのアイテムは自動で引き継がれます（旧ID `uma_*` を新ID `horse_*` へ自動リマップ）。
+When you update from an older version, items in existing worlds are carried over automatically (old IDs `uma_*` are remapped to the new `horse_*` IDs).
 
 ---
 
-## 📜 ライセンス
+## 📜 License
 
 [MIT License](LICENSE) © otoneko.
 
-## 🛠 開発者向け
+## 🛠 For developers
 
-ビルド方法・開発環境・リリース手順は [CONTRIBUTING.md](CONTRIBUTING.md) を参照してください。仕様の詳細は [DESIGN.md](DESIGN.md) にあります。
+See [CONTRIBUTING.md](CONTRIBUTING.md) for build, dev-environment, and release instructions. Design details are in [DESIGN.md](DESIGN.md).
