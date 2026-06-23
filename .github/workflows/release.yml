@@ -44,6 +44,12 @@ jobs:
             loaders: |
               forge
             deps: ""
+          - mc: "1.7.10"
+            java: "17" # RFG は Gradle を Java 17 で実行
+            dir: versions/1.7.10
+            loaders: |
+              forge
+            deps: ""
     steps:
       - name: Checkout
         uses: actions/checkout@v6

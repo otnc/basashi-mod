@@ -30,6 +30,10 @@ jobs:
             java: "8"
             dir: versions/1.12.2
             jar: versions/1.12.2/build/libs/basashi-1.12.2-*.jar
+          - mc: "1.7.10"
+            java: "17" # RFG は Gradle を Java 17 で実行（MCコンパイルは内部のJava8 toolchain）
+            dir: versions/1.7.10
+            jar: versions/1.7.10/build/libs/basashi-1.7.10-*.jar
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -57,6 +61,7 @@ jobs:
           path: |
             ${{ matrix.jar }}
             !**/*-sources.jar
+            !**/*-dev.jar
             !**/*-dev-shadow.jar
           if-no-files-found: error
           retention-days: 14
