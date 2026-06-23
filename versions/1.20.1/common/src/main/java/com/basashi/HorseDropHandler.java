@@ -40,7 +40,12 @@ public final class HorseDropHandler {
                 killer.getMainHandItem()
             );
         }
-        int level = looting + slaughter;
+        // 子供の馬: 屠殺I以下はドロップ無し。屠殺IIは大人と同じ物を基本量で（個数バフ無し）、IIIは大人同様にバフ
+        boolean baby = horse.isBaby();
+        if (baby && slaughter < 2) {
+            return EventResult.pass();
+        }
+        int level = (baby && slaughter < 3) ? 0 : (looting + slaughter);
 
         RandomSource rng = horse.getRandom();
 

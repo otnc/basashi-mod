@@ -18,6 +18,8 @@ public final class BasashiModForge {
         EventBuses.registerModEventBus(BasashiMod.MOD_ID, modBus);
         // MissingMappingsEvent は Forge(ゲーム)バスのイベント
         MinecraftForge.EVENT_BUS.addListener(this::onMissingMappings);
+        // 屠殺の全動物ブースト（LootingLevelEvent は Forge専用イベントのため forge 側で登録）
+        MinecraftForge.EVENT_BUS.register(new SlaughterBoostHandler());
         BasashiMod.init();
     }
 

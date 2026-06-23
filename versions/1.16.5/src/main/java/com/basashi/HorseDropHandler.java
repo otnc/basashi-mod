@@ -32,7 +32,12 @@ public final class HorseDropHandler {
             looting = EnchantmentHelper.getMobLooting(killer);
             slaughter = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.SLAUGHTER.get(), killer.getMainHandItem());
         }
-        int level = looting + slaughter;
+        // 子供の馬: 屠殺I以下はドロップ無し。屠殺IIは大人と同じ物を基本量で（個数バフ無し）、IIIは大人同様にバフ
+        boolean baby = horse.isBaby();
+        if (baby && slaughter < 2) {
+            return;
+        }
+        int level = (baby && slaughter < 3) ? 0 : (looting + slaughter);
 
         Random rng = horse.level.random;
 
