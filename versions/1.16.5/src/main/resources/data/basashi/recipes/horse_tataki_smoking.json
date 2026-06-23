@@ -1,0 +1,9 @@
+{
+    "type": "minecraft:smoking",
+    "ingredient": {
+        "item": "basashi:basashi"
+    },
+    "result": "basashi:horse_tataki",
+    "experience": 0.35,
+    "cookingtime": 100
+}

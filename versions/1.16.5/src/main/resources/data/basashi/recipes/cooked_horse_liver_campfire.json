@@ -1,0 +1,7 @@
+{
+    "type": "minecraft:campfire_cooking",
+    "ingredient": { "item": "basashi:horse_liver" },
+    "result": "basashi:cooked_horse_liver",
+    "experience": 0.35,
+    "cookingtime": 600
+}
