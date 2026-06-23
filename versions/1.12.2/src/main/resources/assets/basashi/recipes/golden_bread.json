@@ -1,0 +1,6 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [ "XXX" ],
+    "key": { "X": { "item": "basashi:golden_wheat" } },
+    "result": { "item": "basashi:golden_bread", "count": 1 }
+}
