@@ -2,23 +2,31 @@
 
 馬刺しMOD の開発・ビルド・リリースに関する情報をまとめます。MOD自体の仕様は [DESIGN.md](DESIGN.md)、リリース運用の詳細は [RELEASING.md](RELEASING.md) を参照してください。
 
-## 技術スタック
+## 構成（モノレポ）
 
-- Minecraft 1.20.1 / Forge（生成jarは NeoForge 1.20.1 でも動作）
-- Architectury（`common` + `forge` 構成）
-- Java 17 / Gradle (Architectury Loom)
+各 Minecraft バージョンを `versions/<mc>/` 以下の**独立した Gradle プロジェクト**として持ちます（Gradle / Java / ForgeGradle のバージョンが版ごとに非互換なため、単一の Gradle マルチプロジェクトにはできない）。
+
+| バージョン | ローダー | ビルド基盤 | Java | 前提MOD |
+|---|---|---|---|---|
+| `versions/1.20.1` | Forge（NeoForge互換） | Architectury Loom / Gradle 8.10.2 | 17 | Architectury API |
+| `versions/1.16.5` | 素 Forge | ForgeGradle 5.1 / Gradle 7.6.4 | 8 | なし |
+| `versions/1.12.2` | 素 Forge | ForgeGradle 2.3 / Gradle 4.10.3 | 8 | なし |
+
+ルートの `scripts/build.mjs`（`pnpm build`）が各版を順にビルドし、成果物を `dist/` に集約します。
 
 ## 必要環境
 
-- **JDK 17**（必須）
+- **JDK 17**（1.20.1 用）と **JDK 8**（1.16.5 / 1.12.2 用）
 - **PowerShell 7 以上**（推奨）… mise の自動切替（フォルダ移動でツール切替）に必要。Windows PowerShell 5.1 だと `mise: chpwd functionality requires PowerShell version 7 or higher` という警告が出る（無害だが、PS7なら出ない）。
 - 初回ビルド時はネット接続が必要（依存ライブラリを取得）
 
-JDK のバージョン管理に [mise](https://mise.jdx.dev/) を使う場合、プロジェクト直下の `.mise.toml` で Java 17 を固定しています:
+JDK のバージョン管理に [mise](https://mise.jdx.dev/) を使う場合、各 `versions/<mc>/.mise.toml` で必要な Java（`temurin-17` / `temurin-8`）を固定しています。両方の toolchain を入れておきます:
 
 ```powershell
-mise install
+mise use -g java@temurin-17 java@temurin-8   # もしくは各版ディレクトリで mise install
 ```
+
+`pnpm build` は各版の `.mise.toml` に応じて `JAVA_HOME` を自動解決します。
 
 ### PowerShell 7 の導入
 
@@ -53,49 +61,49 @@ pnpm install
 ローカルビルド（成果物を `dist/` に出力。テスト用・リリースしない）:
 
 ```powershell
-pnpm build              # gradle.properties の mod_version を使用
-pnpm build -v 1.1.0     # バージョンを指定（--version でも可）
+pnpm build -v 1.1.0              # 全バージョンをビルド
+pnpm build --mc 1.16.5 -v 1.1.0 # 特定バージョンのみ
 ```
 
-→ `dist\basashi-<MC>-<バージョン>.jar` が出力される（Forge / NeoForge 1.20.1 共通）。
+→ `dist\basashi-<MC>-<バージョン>.jar` が各版ぶん出力される。`-v` 未指定時はバージョン `dev`。
 
 > `pnpm` が `-v` を取り込んでしまう場合は `pnpm build -- -v 1.1.0` のように `--` を挟む。
 
-Gradle を直接叩く場合:
+特定バージョンを Gradle で直接叩く場合（その版ディレクトリで実行）:
 
 ```powershell
-.\gradlew build                 # mod_version は gradle.properties の既定値
-.\gradlew build -Pmod_version=1.1.0
+cd versions/1.16.5
+.\gradlew build -Pmod_version=1.1.0   # 未指定時は dev
 ```
 
-> リリース時のバージョンは GitHub Actions の Release で入力するため、`gradle.properties` の `mod_version` は普段の既定値にすぎない。`*-sources.jar` / `*-dev-shadow.jar` は配布用ではない。
+> リリース時のバージョンは GitHub Actions の Release で入力する。`*-sources.jar` / `*-dev-shadow.jar` は配布用ではない。
 >
-> JDK が PATH に無い場合は、ビルド前に `JAVA_HOME` を JDK 17 に向ける:
+> JDK が PATH に無い場合は、その版に対応する JDK を `JAVA_HOME` に向ける（例: 1.16.5 / 1.12.2 は JDK 8）:
 > ```powershell
-> $env:JAVA_HOME = (mise where java@temurin-17)
-> $env:Path = "$env:JAVA_HOME\bin;$env:Path"
-> ```
-
-> JDK が PATH に無い場合は、ビルド前に `JAVA_HOME` を JDK 17 に向ける:
-> ```powershell
-> $env:JAVA_HOME = (mise where java@temurin-17)
+> $env:JAVA_HOME = (mise where java@temurin-8)
 > $env:Path = "$env:JAVA_HOME\bin;$env:Path"
 > ```
 
 ## 開発実行（ゲーム内テスト）
 
+各版ディレクトリで実行します（1.20.1 のみ `:forge` サブプロジェクト）:
+
 ```powershell
-.\gradlew :forge:runClient
+cd versions/1.20.1; .\gradlew :forge:runClient   # 1.20.1
+cd versions/1.16.5; .\gradlew runClient           # 1.16.5
+cd versions/1.12.2; .\gradlew runClient           # 1.12.2
 ```
 
-NeoForge での動作確認は、ビルドした jar を NeoForge 1.20.1 環境の `mods` に入れて行う。
+NeoForge での動作確認は、ビルドした 1.20.1 の jar を NeoForge 1.20.1 環境の `mods` に入れて行う。
 
 ## ディレクトリ構成
 
 ```
-common/   … ローダー非依存の本体（アイテム・イベント・レシピ・モデル・言語・テクスチャ）
-forge/    … Forge固有エントリ（生成jarはNeoForge 1.20.1でも動作）
-docs/img/ … README用の画像
+versions/1.20.1/   … 1.20.1（Architectury: common + forge 構成）
+versions/1.16.5/   … 1.16.5（素 Forge）
+versions/1.12.2/   … 1.12.2（素 Forge）
+scripts/           … build.mjs（全版ビルド）, gen-items.mjs（items.png 生成）
+docs/img/          … README用の画像
 ```
 
 ## コード整形
@@ -121,15 +129,17 @@ pnpm items
 
 ### build.yml — ビルド検証（手動）
 - **動くタイミング**: 手動実行のみ（push では走らない）
-- **やること**: `./gradlew build` で検証し、jar を Actions の Artifacts に14日間保管
+- **やること**: 全バージョンをマトリクスでビルドし、各 jar を Actions の Artifacts に14日間保管
 - **使い方**: Actions タブ → Build → **Run workflow**
 
 ### release.yml — リリース発行（手動・バージョン入力）
 - **動くタイミング**: 手動実行のみ
-- **やること**: 入力したMODバージョンでビルド → `basashi-<MC>-<MOD>.jar` を生成 → タグ `v<MOD>+<MC>` を作成 → GitHub Release を発行して添付
-- **使い方**: Actions タブ → Release → **Run workflow** → 対象ブランチを選び、**MODバージョン**を入力（例 `1.0.0`）。MCバージョンはそのブランチの `gradle.properties` から自動取得
+- **やること**: 入力したMODバージョンで全版をビルド → `basashi-<MC>-<MOD>.jar` を生成 → 1つの GitHub Release に全版を添付 → Modrinth / CurseForge へ各版を公開
+- **使い方**: Actions タブ → Release → **Run workflow** → 対象ブランチを選び、**MODバージョン**を入力（例 `1.1.0`）
 
 ## テクスチャ・調整メモ
 
-- テクスチャ（`common/.../textures/item/*.png`）は **16×16**。同名で上書きすれば差し替え可能（32×32等の高解像度も可）。
-- 食料の数値やレシピは [DESIGN.md](DESIGN.md) と各 JSON / `ModItems.java` を編集して調整できる。
+- テクスチャは **16×16**。同名で上書きすれば差し替え可能（高解像度も可）。配置はバージョンで異なる:
+  - 1.20.1 / 1.16.5: `assets/basashi/textures/item/*.png`（単数 `item`）
+  - 1.12.2: `assets/basashi/textures/items/*.png`（複数 `items`）
+- 食料の数値やレシピは [DESIGN.md](DESIGN.md) と各版の JSON / `ModItems.java` を編集して調整できる（バージョン間で揃えること）。

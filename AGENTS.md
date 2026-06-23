@@ -34,7 +34,7 @@
 - `changelog/vX.Y.Z.md` … 公開用の変更履歴。
 - `.private/` … 非公開の計画書（**gitignore 済み**、コミットしない）。
 - `docs/img/` … README 用画像。`pnpm items` で `items.png`（6個/行で折返し）を再生成。
-- `common/` … ローダー非依存の本体 / `forge/` … Forge固有エントリ（生成jarはNeoForge 1.20.1でも動作）。
+- `versions/<mc>/` … 各MC版の独立 Gradle プロジェクト（`1.20.1` は Architectury の `common`+`forge`、`1.16.5`/`1.12.2` は素 Forge）。`scripts/build.mjs` が全版をビルドし `dist/` へ集約。
 
 ## コード / アセット方針
 
