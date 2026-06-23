@@ -43,10 +43,8 @@
 以下のいずれからでも入手できます（中身は同じです）:
 
 - [GitHub Releases](https://github.com/otnc/basashi-mod/releases)
-- [Modrinth](https://modrinth.com/mod/basashi-mod) **(審査中)**
-- [CurseForge](https://www.curseforge.com/minecraft/mc-mods/basashi-mod) **(審査中)**
-
-> Modrinth / CurseForge は公開審査中のため、ページが表示されない場合があります。その間は GitHub Releases をご利用ください。
+- [Modrinth](https://modrinth.com/mod/basashi-mod)
+- [CurseForge](https://www.curseforge.com/minecraft/mc-mods/basashi-mod)
 
 ---
 

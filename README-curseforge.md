@@ -45,10 +45,8 @@ It also adds horse-themed gameplay such as the Slaughter enchantment and Golden 
 Available from any of the following (the files are identical):
 
 - [GitHub Releases](https://github.com/otnc/basashi-mod/releases)
-- [Modrinth](https://modrinth.com/mod/basashi-mod) **(under review)**
-- [CurseForge](https://www.curseforge.com/minecraft/mc-mods/basashi-mod) **(under review)**
-
-> Modrinth / CurseForge pages are under review and may not be visible yet. In the meantime, please use GitHub Releases.
+- [Modrinth](https://modrinth.com/mod/basashi-mod)
+- [CurseForge](https://www.curseforge.com/minecraft/mc-mods/basashi-mod)
 
 ---
 
