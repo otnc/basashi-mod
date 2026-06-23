@@ -9,5 +9,6 @@
     "item.basashi.cooked_horse_liver": "焼いた馬レバー",
     "item.basashi.golden_wheat": "金の小麦",
     "item.basashi.golden_bread": "金のパン",
-    "enchantment.basashi.slaughter": "屠殺"
+    "enchantment.basashi.slaughter": "屠殺",
+    "itemGroup.basashi": "馬刺しMOD"
 }

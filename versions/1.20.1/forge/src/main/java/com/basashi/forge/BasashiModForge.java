@@ -4,6 +4,7 @@ import com.basashi.BasashiMod;
 import com.basashi.ModItems;
 import dev.architectury.platform.forge.EventBuses;
 import net.minecraft.core.registries.Registries;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -15,7 +16,8 @@ public final class BasashiModForge {
     public BasashiModForge() {
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
         EventBuses.registerModEventBus(BasashiMod.MOD_ID, modBus);
-        modBus.addListener(this::onMissingMappings);
+        // MissingMappingsEvent は Forge(ゲーム)バスのイベント
+        MinecraftForge.EVENT_BUS.addListener(this::onMissingMappings);
         BasashiMod.init();
     }
 

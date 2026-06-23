@@ -9,5 +9,6 @@
     "item.basashi.cooked_horse_liver": "Cooked Horse Liver",
     "item.basashi.golden_wheat": "Golden Wheat",
     "item.basashi.golden_bread": "Golden Bread",
-    "enchantment.basashi.slaughter": "Slaughter"
+    "enchantment.basashi.slaughter": "Slaughter",
+    "itemGroup.basashi": "Basashi Mod"
 }
