@@ -1,6 +1,6 @@
 # リリース運用ガイド
 
-馬刺しMOD のバージョン管理・リリース方法と、将来の複数 Minecraft バージョン展開の方針をまとめる。
+馬刺しMOD のバージョン管理・リリース方法と、複数 Minecraft バージョン展開の方針をまとめる。
 
 ---
 
@@ -8,33 +8,35 @@
 
 | 種類 | 形式 | 例 | 定義場所 |
 |------|------|----|----------|
-| MODバージョン | SemVer `MAJOR.MINOR.PATCH` | `1.0.0` | `gradle.properties` の `mod_version` |
-| 対象MCバージョン | `x.y.z` | `1.20.1` | `gradle.properties` の `minecraft_version` |
-| 内部バージョン（mods.toml/jar） | `<MC>-<MOD>` | `1.20.1-1.0.0` | build.gradle で自動合成 |
-| 配布jar名 | `basashi-<MC>-<MOD>.jar` | `basashi-1.20.1-1.0.0.jar` | Release 時に生成 |
+| MODバージョン | SemVer `MAJOR.MINOR.PATCH` | `1.1.0` | リリース時に入力（`-Pmod_version`） |
+| 対象MCバージョン | `x.y.z` | `1.20.1` | 各 `versions/<mc>/gradle.properties` |
+| 配布jar名 | `basashi-<MC>-<MOD>.jar` | `basashi-1.16.5-1.1.0.jar` | Release 時に生成 |
+| 公開バージョン（Modrinth/CF） | `<MOD>+<MC>` | `1.1.0+1.16.5` | release.yml で合成 |
 
 - **MODバージョンはMCと独立**。機能追加=MINOR、バグ修正=PATCH、互換を壊す変更=MAJOR。
+- MODバージョンは `gradle.properties` にハードコードせず、ビルド時に渡す（未指定なら `dev`）。
 - jar名にMCバージョンを含めることで、どのMC向けかが一目で分かる。
 
 ### SemVer の上げ方の目安
 - `PATCH`（1.0.0→1.0.1）: バグ修正のみ
 - `MINOR`（1.0.0→1.1.0）: アイテム/レシピ追加など後方互換のある機能追加
-- `MAJOR`（1.0.0→2.0.0）: 既存の挙動・ID変更などワールドに影響する非互換変更
+- `MAJOR`（1.0.0→2.0.0）: 既存の挙動・ID変更などワールドに影響する非互換変更（ID変更は `MissingMappings` で旧ID→新IDへリマップして互換維持）
 
 ---
 
 ## 複数 Minecraft バージョンの展開方針
 
-**MCバージョンごとにブランチを分ける。**
+**モノレポ**。各MC版を `versions/<mc>/` 以下の独立 Gradle プロジェクトとして同一ブランチに持つ（ブランチを分けない）。
 
-| ブランチ | 対象MC | 備考 |
-|----------|--------|------|
-| `main` | 1.20.1 | 現行 |
-| `mc/1.21`（将来） | 1.21.x | 1.21対応を始めたら作成 |
+| ディレクトリ | 対象MC | ローダー | 前提MOD |
+|---|---|---|---|
+| `versions/1.20.1` | 1.20.1 | Forge / NeoForge | Architectury API |
+| `versions/1.16.5` | 1.16.5 | Forge | なし |
+| `versions/1.12.2` | 1.12.2 | Forge | なし |
+| `versions/1.7.10` | 1.7.10 | Forge | なし |
 
-- 各ブランチの `gradle.properties` がそのブランチの `minecraft_version` を持つ。
-- 機能追加は各ブランチへ反映（必要に応じて cherry-pick）。
-- **1.20.2 以降を対応する場合**は、本物の NeoForge 分岐が始まるため、`neoforge` モジュールを追加した本来のマルチローダー構成に戻すことを検討する（1.20.1 は Forge 互換jarで両対応している）。
+- 新しいMC版を足すときは `versions/<mc>/` を追加し、`scripts/build.mjs` と CI（build.yml / release.yml）のマトリクスに1行加える。
+- 1リリースで**全版を同時にビルド・公開**する。
 
 ---
 
@@ -42,29 +44,23 @@
 
 リリースは **GitHub Actions の手動実行（バージョン入力）** で行う。タグやファイル更新は不要。
 
-### 1. リリースしたいブランチを確認
-そのブランチの `gradle.properties` の `minecraft_version` が対象MCになる（例: `main` = 1.20.1）。
-
-### 2. Release ワークフローを実行
+### Release ワークフローを実行
 GitHub の **Actions → Release → Run workflow**:
-- **Use workflow from**: リリース対象のブランチを選択
-- **MODバージョン**: リリースする版を入力（例 `1.0.0`）
+- **Use workflow from**: リリース対象のブランチを選択（通常 `main`）
+- **MODバージョン**: リリースする版を入力（例 `1.1.0`）
 
 → [`.github/workflows/release.yml`](.github/workflows/release.yml) が自動で:
-- 入力したMODバージョンでビルド（`-Pmod_version=<入力値>`）
-- `basashi-<MC>-<MOD>.jar` を生成
-- タグ `v<MOD>+<MC>`（例 `v1.0.0+1.20.1`）を作成
-- GitHub Release を作成して jar を添付
+- 全MC版を入力したMODバージョンでビルド（`-Pmod_version=<入力値>`）
+- 各版を Modrinth / CurseForge へ個別バージョン `<MOD>+<MC>`（例 `1.1.0+1.16.5`）として公開
+- 全版の `basashi-<MC>-<MOD>.jar` を **1つの GitHub Release**（タグ `v<MOD>`）に添付
 
-> タグに `+<MC>` を含めるため、別のMCバージョンで同じMODバージョン（1.20.1 と 1.21 の両方で v1.0.0）を出してもタグが衝突しない。
-
-> MODバージョンは実行時入力が優先される。`gradle.properties` の `mod_version` は普段の既定値。恒久的に上げたい場合は別途 `gradle.properties` を更新してコミットする。
+> 各MC版を独立した公開バージョンにするため、ローダー・対応MC・前提MOD（Architectury は 1.20.1 のみ）を版ごとに正しく設定できる。
 
 ---
 
 ## Modrinth / CurseForge への公開
 
-`release.yml` は [`Kir-Antipov/mc-publish`](https://github.com/Kir-Antipov/mc-publish) で GitHub Release と同時に Modrinth / CurseForge へも公開する。**プロジェクトは各サイトで事前に手動作成**しておくこと（初回のみ）。
+`release.yml` は [`Kir-Antipov/mc-publish`](https://github.com/Kir-Antipov/mc-publish) で各MC版を Modrinth / CurseForge へ公開する。**プロジェクトは各サイトで事前に手動作成**しておくこと（初回のみ）。
 
 GitHub リポジトリの Settings に以下を登録すると有効化される（未設定のプラットフォームは自動スキップ）:
 
@@ -76,21 +72,20 @@ GitHub リポジトリの Settings に以下を登録すると有効化される
 | Secret | 同上 | `CURSEFORGE_TOKEN` | CurseForge の API トークン |
 
 - ID（Variable）とトークン（Secret）の**両方**が揃ったプラットフォームのみ公開される。
-- 公開時のメタ情報（ローダー=forge/neoforge、ゲームバージョン、前提MOD=architectury-api）は `release.yml` 内で指定済み。
+- 公開メタ情報（ローダー・ゲームバージョン・前提MOD）は `release.yml` のマトリクスで版ごとに指定済み。
 - 各サイトで初回ファイルは審査が入る場合がある。
 
 ---
 
 ## CI（ビルド検証）
 
-[`.github/workflows/build.yml`](.github/workflows/build.yml) は **手動実行のみ**（Actions タブ → Build → Run workflow）。push では自動で走らない。実行すると `./gradlew build` で検証し、成果物（jar）を Actions の Artifacts から14日間ダウンロードできる。リリース時のビルドは [`release.yml`](.github/workflows/release.yml) が別途行う。
+[`.github/workflows/build.yml`](.github/workflows/build.yml) は **手動実行のみ**（Actions タブ → Build → Run workflow）。push では自動で走らない。実行すると全MC版をマトリクスでビルド検証し、各版の jar を Actions の Artifacts から14日間ダウンロードできる。リリース時のビルドは [`release.yml`](.github/workflows/release.yml) が別途行う。
 
 ---
 
 ## チェックリスト（リリース前）
 
-- [ ] `mod_version` / `minecraft_version` が正しいか
-- [ ] `./gradlew build` がローカルで通るか
-- [ ] ゲーム内で動作確認したか（ドロップ・焼き・クラフト）
-- [ ] タグ形式は `v<MOD>+<MC>` か
-- [ ] 正しいブランチにタグを打ったか
+- [ ] 入力する `mod_version` が正しいか（SemVer）
+- [ ] `pnpm build -v <MOD>` がローカルで全版通るか
+- [ ] 各MC版でゲーム内動作確認したか（ドロップ・焼き・クラフト・取引）
+- [ ] 新規アイテムのID・翻訳・モデル・テクスチャが全版そろっているか

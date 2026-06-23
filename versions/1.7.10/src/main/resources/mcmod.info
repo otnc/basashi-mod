@@ -1,0 +1,12 @@
+[
+  {
+    "modid": "basashi",
+    "name": "馬刺しMOD",
+    "description": "馬を倒すと「馬刺し」がドロップする食料追加MOD。",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "authorList": ["otoneko."],
+    "logoFile": "",
+    "url": ""
+  }
+]

@@ -1,0 +1,6 @@
+{
+  // 単一の子フォルダが続く階層を foo/bar/baz のように1行へまとめて表示する
+  "explorer.compactFolders": true,
+  // 統合ターミナルの既定を PowerShell 7 (pwsh) にする（"Windows PowerShell" は 5.1）
+  "terminal.integrated.defaultProfile.windows": "PowerShell"
+}

@@ -1,0 +1,32 @@
+plugins {
+    // FG 1.2/2.x のモダンな置き換え。現行のMojang配信URLを使うため 1.7.10 でもDLが通る。
+    id 'com.gtnewhorizons.retrofuturagradle' version '1.4.9'
+}
+
+group = maven_group
+version = project.hasProperty('mod_version') ? project.mod_version : 'dev'
+
+base {
+    archivesName = "basashi-${minecraft_version}"
+}
+
+java {
+    toolchain {
+        // MC 1.7.10 は Java 8 でコンパイル/実行（Gradle自体は temurin-17 で動かす）
+        languageVersion = JavaLanguageVersion.of(8)
+    }
+}
+
+minecraft {
+    mcVersion = minecraft_version
+}
+
+processResources {
+    inputs.property 'version', project.version
+    inputs.property 'mcversion', minecraft_version
+
+    // mcmod.info にだけバージョンを差し込む（Gradle8: 既定コピーと重複させない）
+    filesMatching('mcmod.info') {
+        expand 'version': project.version, 'mcversion': minecraft_version
+    }
+}

@@ -1,0 +1,7 @@
+{
+    "type": "minecraft:smoking",
+    "ingredient": { "item": "basashi:horse_tartare" },
+    "result": "basashi:horse_hamburg_deluxe",
+    "experience": 0.35,
+    "cookingtime": 100
+}

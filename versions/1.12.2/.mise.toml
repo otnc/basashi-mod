@@ -1,0 +1,3 @@
+# MC 1.12.2 / Forge は Java 8 でビルド・実行する
+[tools]
+java = "temurin-8"

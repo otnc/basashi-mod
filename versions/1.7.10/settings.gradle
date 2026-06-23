@@ -1,0 +1,18 @@
+pluginManagement {
+    repositories {
+        // RetroFuturaGradle は GTNH maven で公開（プラグインポータルには無い）
+        maven {
+            name = "GTNH Maven"
+            url = "https://nexus.gtnewhorizons.com/repository/public/"
+        }
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+
+plugins {
+    // Java 8 toolchain を自動取得（mise配下のJDKをGradleが見つけられない場合の保険）
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.8.0'
+}
+
+rootProject.name = 'basashi-1.7.10'
