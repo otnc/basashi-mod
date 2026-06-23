@@ -8,7 +8,8 @@
     "format": "prettier --write \"**/*.java\"",
     "format:check": "prettier --check \"**/*.java\"",
     "build": "node scripts/build.mjs",
-    "items": "node scripts/gen-items.mjs"
+    "items": "node scripts/gen-items.mjs",
+    "generate-md": "node scripts/generate-md.mjs"
   },
   "keywords": [],
   "author": "otoneko.",
