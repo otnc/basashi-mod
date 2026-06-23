@@ -8,7 +8,8 @@ import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
-const texDir = path.join(root, "common/src/main/resources/assets/basashi/textures/item");
+// テクスチャは 1.20.1 を基準に使用（各版で共通の絵柄）
+const texDir = path.join(root, "versions/1.20.1/common/src/main/resources/assets/basashi/textures/item");
 const outFile = path.join(root, "docs/img/items.png");
 
 // 並び順

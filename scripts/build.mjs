@@ -1,8 +1,7 @@
-// ローカルでMOD jarをビルドし、分かりやすい場所 (dist/) に出力する。
-//   pnpm build                 … gradle.properties の mod_version を使用
-//   pnpm build -v 1.1.0        … バージョンを指定（--version でも可）
-//   pnpm build --version 1.1.0
-// （pnpm が -v を取り込む場合は `pnpm build -- -v 1.1.0` のように -- を挟む）
+// 各MCバージョン(versions/<mc>/ の独立ビルド)をビルドし、dist/ に jar を集約する。
+//   pnpm build -v 1.1.0                … 全バージョンをビルド
+//   pnpm build --mc 1.16.5 -v 1.1.0    … 指定バージョンのみ
+//   -v 省略時は dev
 import { execSync } from "child_process";
 import fs from "fs";
 import path from "path";
@@ -11,61 +10,72 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 
-function prop(key) {
-  const txt = fs.readFileSync(path.join(root, "gradle.properties"), "utf8");
-  const m = txt.match(new RegExp("^" + key + "=(.*)$", "m"));
-  return m ? m[1].trim() : null;
-}
+// バージョンごとの設定（ビルドツールチェーンが異なるため独立プロジェクト）
+const VERSIONS = {
+  "1.20.1": {
+    dir: "versions/1.20.1",
+    javaTool: "temurin-17",
+    jar: (mod) => `forge/build/libs/basashi-forge-1.20.1-${mod}.jar`, // Architectury(common+forge)
+  },
+  "1.16.5": {
+    dir: "versions/1.16.5",
+    javaTool: "temurin-8",
+    jar: (mod) => `build/libs/basashi-1.16.5-${mod}.jar`, // 素Forge(単一)
+  },
+};
 
-// -v / --version でMODバージョンを指定（無ければ gradle.properties の既定値）
-function parseVersionArg(argv) {
-  for (let i = 0; i < argv.length; i++) {
-    const a = argv[i];
-    if (a === "--version" || a === "-v") return argv[i + 1];
-    if (a.startsWith("--version=")) return a.slice("--version=".length);
-    if (a.startsWith("-v=")) return a.slice("-v=".length);
+function arg(names) {
+  const a = process.argv.slice(2);
+  for (let i = 0; i < a.length; i++) {
+    if (names.includes(a[i])) return a[i + 1];
+    for (const n of names) if (a[i].startsWith(n + "=")) return a[i].slice(n.length + 1);
   }
   return null;
 }
 
-const mc = prop("minecraft_version");
-const cliVer = parseVersionArg(process.argv.slice(2));
-// -v 未指定なら gradle.properties の mod_version、それも無ければ "dev"
-const mod = cliVer || prop("mod_version") || "dev";
+const mcArg = arg(["--mc"]);
+const mod = arg(["-v", "--version"]) || "dev";
+const targets = mcArg ? [mcArg] : Object.keys(VERSIONS);
 
-// JAVA_HOME を解決（未設定なら mise から取得）
-let javaHome = process.env.JAVA_HOME;
-if (!javaHome) {
+function resolveJava(tool) {
   try {
-    javaHome = execSync("mise where java@temurin-17", { encoding: "utf8" }).trim();
+    return execSync(`mise where java@${tool}`, { encoding: "utf8" }).trim();
   } catch {
-    /* mise が無ければ無視 */
+    return process.env.JAVA_HOME || null;
   }
-}
-const env = { ...process.env };
-if (javaHome) {
-  env.JAVA_HOME = javaHome;
-  env.PATH = path.join(javaHome, "bin") + path.delimiter + env.PATH;
-}
-
-const gradlew = path.join(root, process.platform === "win32" ? "gradlew.bat" : "gradlew");
-console.log(
-  `Building basashi ${mod} for Minecraft ${mc}  ` +
-    `[${cliVer ? "-v 指定" : "gradle.properties"}]${javaHome ? `  (JAVA_HOME=${javaHome})` : ""}`
-);
-execSync(`"${gradlew}" build -Pmod_version=${mod}`, { cwd: root, env, stdio: "inherit" });
-
-const src = path.join(root, "forge/build/libs", `basashi-forge-${mc}-${mod}.jar`);
-if (!fs.existsSync(src)) {
-  console.error(`\n✗ Jar not found: ${src}`);
-  process.exit(1);
 }
 
 const distDir = path.join(root, "dist");
 fs.mkdirSync(distDir, { recursive: true });
-const dest = path.join(distDir, `basashi-${mc}-${mod}.jar`);
-fs.copyFileSync(src, dest);
+const built = [];
 
-console.log("\n✅ ビルド完了");
-console.log(`   出力: ${path.relative(root, dest)}  (Forge / NeoForge ${mc} 用)`);
-console.log("   このjarを CurseForge / Forge の mods に入れてテストできます。");
+for (const mc of targets) {
+  const cfg = VERSIONS[mc];
+  if (!cfg) {
+    console.error(`✗ 未知のMCバージョン: ${mc}（対応: ${Object.keys(VERSIONS).join(", ")}）`);
+    process.exit(1);
+  }
+  const vdir = path.join(root, cfg.dir);
+  const javaHome = resolveJava(cfg.javaTool);
+  const env = { ...process.env };
+  if (javaHome) {
+    env.JAVA_HOME = javaHome;
+    env.PATH = path.join(javaHome, "bin") + path.delimiter + env.PATH;
+  }
+  const gradlew = path.join(vdir, process.platform === "win32" ? "gradlew.bat" : "gradlew");
+  console.log(`\n=== ${mc} : basashi ${mod} をビルド (java=${cfg.javaTool}${javaHome ? "" : " ※未解決"}) ===`);
+  execSync(`"${gradlew}" build -Pmod_version=${mod}`, { cwd: vdir, env, stdio: "inherit" });
+
+  const src = path.join(vdir, cfg.jar(mod));
+  if (!fs.existsSync(src)) {
+    console.error(`✗ jar が見つかりません: ${src}`);
+    process.exit(1);
+  }
+  const dest = path.join(distDir, `basashi-${mc}-${mod}.jar`);
+  fs.copyFileSync(src, dest);
+  built.push(path.relative(root, dest));
+}
+
+console.log("\n✅ ビルド完了。dist/ に出力:");
+for (const b of built) console.log(`   ${b}`);
+console.log("これらを各MCバージョンの Forge/NeoForge の mods に入れてテストできます。");
