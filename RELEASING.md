@@ -33,6 +33,7 @@
 | `versions/1.20.1` | 1.20.1 | Forge / NeoForge | Architectury API |
 | `versions/1.16.5` | 1.16.5 | Forge | なし |
 | `versions/1.12.2` | 1.12.2 | Forge | なし |
+| `versions/1.7.10` | 1.7.10 | Forge | なし |
 
 - 新しいMC版を足すときは `versions/<mc>/` を追加し、`scripts/build.mjs` と CI（build.yml / release.yml）のマトリクスに1行加える。
 - 1リリースで**全版を同時にビルド・公開**する。

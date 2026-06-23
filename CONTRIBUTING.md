@@ -11,12 +11,15 @@
 | `versions/1.20.1` | Forge（NeoForge互換） | Architectury Loom / Gradle 8.10.2 | 17 | Architectury API |
 | `versions/1.16.5` | 素 Forge | ForgeGradle 5.1 / Gradle 7.6.4 | 8 | なし |
 | `versions/1.12.2` | 素 Forge | ForgeGradle 2.3 / Gradle 4.10.3 | 8 | なし |
+| `versions/1.7.10` | 素 Forge | RetroFuturaGradle / Gradle 8.10.2 | 17※ | なし |
+
+※ 1.7.10 は RetroFuturaGradle で Gradle 自体を Java 17 で実行します（MCのコンパイルは内部の Java 8 toolchain。FG 1.2 はMojangの旧配信URL廃止で不可のため RFG を採用）。
 
 ルートの `scripts/build.mjs`（`pnpm build`）が各版を順にビルドし、成果物を `dist/` に集約します。
 
 ## 必要環境
 
-- **JDK 17**（1.20.1 用）と **JDK 8**（1.16.5 / 1.12.2 用）
+- **JDK 17**（1.20.1 / 1.7.10 用）と **JDK 8**（1.16.5 / 1.12.2 用）
 - **PowerShell 7 以上**（推奨）… mise の自動切替（フォルダ移動でツール切替）に必要。Windows PowerShell 5.1 だと `mise: chpwd functionality requires PowerShell version 7 or higher` という警告が出る（無害だが、PS7なら出ない）。
 - 初回ビルド時はネット接続が必要（依存ライブラリを取得）
 
@@ -92,6 +95,7 @@ cd versions/1.16.5
 cd versions/1.20.1; .\gradlew :forge:runClient   # 1.20.1
 cd versions/1.16.5; .\gradlew runClient           # 1.16.5
 cd versions/1.12.2; .\gradlew runClient           # 1.12.2
+cd versions/1.7.10; .\gradlew runClient           # 1.7.10（初回はMCデコンパイルで数分）
 ```
 
 NeoForge での動作確認は、ビルドした 1.20.1 の jar を NeoForge 1.20.1 環境の `mods` に入れて行う。
@@ -102,6 +106,7 @@ NeoForge での動作確認は、ビルドした 1.20.1 の jar を NeoForge 1.2
 versions/1.20.1/   … 1.20.1（Architectury: common + forge 構成）
 versions/1.16.5/   … 1.16.5（素 Forge）
 versions/1.12.2/   … 1.12.2（素 Forge）
+versions/1.7.10/   … 1.7.10（素 Forge / RetroFuturaGradle）
 scripts/           … build.mjs（全版ビルド）, gen-items.mjs（items.png 生成）
 docs/img/          … README用の画像
 ```
