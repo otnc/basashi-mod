@@ -150,30 +150,33 @@
 
 村人「肉屋」と取引できます。馬刺しの買い取りや、各種馬肉料理・金の小麦の販売を行います（肉屋のレベルが上がると品ぞろえが増えます）。
 
-### 📋 クラフトレシピ
+### 📋 レシピ
 
 <details>
-<summary>レシピ一覧を見る</summary>
+<summary>レシピ一覧を見る（クラフト・焼き）</summary>
 
-**調理（かまど・燻製機・焚火）**
+#### 🔥 焼く（かまど・燻製機・焚火）
 
-馬刺し→馬のタタキ／馬肉のユッケ→ハンバーグ／タルタルステーキ→具入りハンバーグ／生レバー→焼きレバー
+| 焼くと | レシピ |
+|---|---|
+| 馬刺し → 馬のタタキ | <img src="docs/img/recipe_tataki.png" width="240"> |
+| 馬肉のユッケ → 馬肉のハンバーグ | <img src="docs/img/recipe_horse_hamburg.png" width="240"> |
+| 馬肉のタルタルステーキ → 馬肉の具入りハンバーグ | <img src="docs/img/recipe_horse_hamburg_deluxe.png" width="240"> |
+| 生の馬レバー → 焼いた馬レバー | <img src="docs/img/recipe_cooked_horse_liver.png" width="240"> |
 
-![タタキのレシピ](docs/img/recipe_tataki.png)
+#### 🛠 クラフト
 
-**馬肉のユッケ**（馬刺し＋卵・並べ方自由）
+| アイテム | 材料 | レシピ |
+|---|---|---|
+| 馬肉のユッケ | 馬刺し＋卵（並べ方自由） | <img src="docs/img/recipe_yukke.png" width="240"> |
+| 馬肉のタルタルステーキ | 馬刺し＋ニンジン＋卵（並べ方自由） | <img src="docs/img/recipe_tartare.png" width="240"> |
+| 金の小麦 | 小麦＋金塊 | <img src="docs/img/recipe_golden_wheat.png" width="240"> |
+| 金のパン | 金の小麦×3（横一列） | <img src="docs/img/recipe_golden_bread.png" width="240"> |
+| 鉄の馬鎧 | 鉄インゴット | <img src="docs/img/recipe_iron_horse_armor.png" width="240"> |
+| 金の馬鎧 | 金インゴット | <img src="docs/img/recipe_golden_horse_armor.png" width="240"> |
+| ダイヤの馬鎧 | ダイヤモンド | <img src="docs/img/recipe_diamond_horse_armor.png" width="240"> |
 
-![ユッケのレシピ](docs/img/recipe_yukke.png)
-
-**馬肉のタルタルステーキ**（馬刺し＋ニンジン＋卵・並べ方自由）
-
-![タルタルステーキのレシピ](docs/img/recipe_tartare.png)
-
-**その他**
-
-- **金の小麦**: 小麦＋金塊
-- **金のパン**: 金の小麦×3（横一列）
-- **鉄／金／ダイヤの馬鎧**: 各素材を馬鎧の形に並べてクラフト（バニラでは入手しにくい馬鎧を作れます）
+> 馬鎧（鉄・金・ダイヤ）はバニラでは入手しにくいので、クラフトできるようにしています。革の馬鎧があるバージョン（1.16.5 / 1.20.1）はバニラのレシピをそのまま利用できます。
 
 </details>
 
