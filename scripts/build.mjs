@@ -27,6 +27,11 @@ const VERSIONS = {
     javaTool: "temurin-8",
     jar: (mod) => `build/libs/basashi-1.12.2-${mod}.jar`, // 素Forge(ForgeGradle2.3)
   },
+  "1.7.10": {
+    dir: "versions/1.7.10",
+    javaTool: "temurin-17",
+    jar: (mod) => `build/libs/basashi-1.7.10-${mod}.jar`, // 素Forge(RetroFuturaGradle)
+  },
 };
 
 function arg(names) {
